@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     
+    
     @IBOutlet weak var topSegmentedControl: UISegmentedControl!
     @IBOutlet weak var bottomSegmentedControl: UISegmentedControl!
     
@@ -29,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func segmentedControlAction(_ sender: UISegmentedControl) {
-
+        setupCaptionLabels()
     }
     
    
@@ -38,40 +39,26 @@ class ViewController: UIViewController {
     let bottomChoices = [CaptionOption(emoji: "😁", caption: "good ending"), CaptionOption(emoji: "💀", caption: "i forgor"), CaptionOption(emoji: "🧐", caption: "enjoy the next 45 seconds")]
     
 
+    func setupCaptionLabels() {
+        // Get the index.
+        let topCaptionIndex = topSegmentedControl.selectedSegmentIndex
+        let bottomCaptionIndex = bottomSegmentedControl.selectedSegmentIndex
+        
+        // Get the option at the index.
+        let topCaption = topChoices[topCaptionIndex].caption
+        let bottomCaption = bottomChoices[bottomCaptionIndex].caption
+        
+        // Assign the option to the label.
+        topLabel.text = topCaption
+        bottomLabel.text = bottomCaption
+    }
     
  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         // Remove default segmented control options.
-        topSegmentedControl.removeAllSegments()
-        bottomSegmentedControl.removeAllSegments()
-        topSegmentedControl.selectedSegmentIndex = 1
-        bottomSegmentedControl.selectedSegmentIndex = 1
-        
-        func setupCaptionLabels() {
-            // Get the index.
-            let topCaptionIndex = topSegmentedControl.selectedSegmentIndex
-            let bottomCaptionIndex = bottomSegmentedControl.selectedSegmentIndex
-            
-            // Get the option at the index.
-            let topCaption = topChoices[topCaptionIndex].caption
-            let bottomCaption = bottomChoices[bottomCaptionIndex].caption
-            
-            // Assign the option to the label.
-            topLabel.text = topCaption
-            bottomLabel.text = bottomCaption
-        }
-        
-        // Add data to segmented control.
-        for choice in topChoices {
-            topSegmentedControl.insertSegment(withTitle:
-           choice.emoji, at: topChoices.count,animated: false)
-        }
-        for choice in bottomChoices {
-            bottomSegmentedControl.insertSegment(withTitle: choice.emoji, at: bottomChoices.count, animated: false)
-        }
-        
-        setupCaptionLabels()
+        topSegmentedControl.selectedSegmentIndex = 0
+        bottomSegmentedControl.selectedSegmentIndex = 0
 }
 }
